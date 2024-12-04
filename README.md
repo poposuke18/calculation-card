@@ -1,36 +1,62 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 計算カードゲーム（Calculation Card Game）
 
-## Getting Started
+制限時間内に、与えられたカードを使って目標の数字を作る計算パズルゲームです！
 
-First, run the development server:
+## 🎮 ゲーム概要
+
+- 制限時間は45秒
+- フィールドには16枚のカードが配置されます
+  - 1段目：数字＋演算子のカード（例：8+）
+  - 2段目：演算子＋数字のカード（例：×3）
+  - 3段目：数字のカード（0-9）
+  - 4段目：演算子カード（+, -, ×, ÷）
+- 目標の数字（1-60）が表示されます
+- カードを選んで計算式を作り、目標の数字を作ることが目的です
+
+## 🎯 スコアシステム
+
+- 使用したカード枚数 × 残り時間 = スコア
+- より少ないカードで素早く解くほど、高得点が得られます
+
+## 🕹 操作方法
+
+- カードをクリックして式を作成
+- 「計算」ボタンで結果を確認
+- 「やり直し」ボタンで選択したカードを元に戻す
+- 「シャッフル」ボタンでカードを並び替え（3回まで使用可能）
+
+## ⚠️ ゲームオーバー条件
+
+- 制限時間（45秒）が経過
+
+## 💻 開発環境
+
+- Next.js 14
+- TypeScript
+- Tailwind CSS
+- Framer Motion
+
+## 🚀 ローカルでの実行方法
 
 ```bash
+# リポジトリのクローン
+git clone https://github.com/poposuke18/calculation-card.git
+
+# プロジェクトディレクトリに移動
+cd calculation-card
+
+# 依存パッケージのインストール
+npm install
+
+# 開発サーバーの起動
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+ブラウザで http://localhost:3000 を開いてゲームをプレイできます。
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 📝 TODO
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- [ ] ハイスコアの保存機能
+- [ ] 難易度設定の追加
+- [ ] 効果音の実装
+- [ ] モバイル対応の改善
