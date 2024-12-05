@@ -22,6 +22,8 @@ export interface GameState {
   gameOver: boolean;
   calculationResult: number | null;
   message: string;
+  solvedProblems: number;
+  isCalculating: boolean;
 }
 
 export interface Position {

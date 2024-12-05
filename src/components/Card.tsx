@@ -10,7 +10,7 @@ interface CardProps {
 const Card: React.FC<CardProps> = ({ card, onClick }) => {
   if (card.isUsed) {
     return (
-      <div className="w-20 h-28 rounded-lg border-2 border-dashed border-gray-300">
+      <div className="w-20 h-28 rounded-lg border-2 border-dashed border-indigo-200">
       </div>
     );
   }
@@ -19,10 +19,10 @@ const Card: React.FC<CardProps> = ({ card, onClick }) => {
     <motion.button
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
-      className="w-20 h-28 bg-gradient-to-br from-purple-400 to-pink-400 
+      className="w-20 h-28 bg-gradient-to-br from-indigo-500 to-purple-500 
                  rounded-lg shadow-lg flex items-center justify-center 
                  text-white text-2xl font-bold cursor-pointer
-                 hover:from-purple-500 hover:to-pink-500
+                 hover:from-indigo-600 hover:to-purple-600
                  transition-colors duration-200"
       onClick={() => onClick(card)}
     >
