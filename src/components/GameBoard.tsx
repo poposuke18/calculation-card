@@ -54,14 +54,15 @@ useEffect(() => {
     }
   }, [gameState.timeLeft, gameState.gameOver]);
 
-  const startNewGame = () => {
+  const startNewGame = (resetScore: boolean = false) => {
     setGameState(prev => ({
       ...initialState,
       targetNumber: generateTargetNumber(),
       cards: generateCards(),
-      timeLeft: 50,
-      totalScore: prev.totalScore,  // totalScoreを維持
-      solvedProblems: prev.solvedProblems  // solvedProblemsを維持
+      timeLeft: 45,
+      // ゲームオーバーからの再スタート時はスコアをリセット
+      totalScore: resetScore ? 0 : prev.totalScore,
+      solvedProblems: resetScore ? 0 : prev.solvedProblems
     }));
     setUsedPositions(new Set());
   };
@@ -229,20 +230,20 @@ useEffect(() => {
       {/* ゲーム情報の表示 */}
       <div className="bg-white rounded-lg shadow-xl p-6 mb-6">
       <div className="flex justify-between items-center mb-4">
-  <div className="text-3xl font-bold text-purple-600">
+  <div className="text-xl font-bold text-purple-600">
     Target: {gameState.targetNumber}
   </div>
   <div className="flex gap-6">
-  <div className="text-fuchsia-600 text-xl font-semibold">
-  Time: <span className="text-indigo-600">{gameState.timeLeft}s</span>
+  <div className="text-fuchsia-600 text-lg font-semibold">
+  Time: <span className="text-fuchsia-600">{gameState.timeLeft}s</span>
 </div>
-<div className="text-purple-600 text-xl font-semibold">
-  Score: <span className="text-indigo-600">{gameState.totalScore}</span>
+<div className="text-purple-600 text-lg font-semibold">
+  Score: <span className="text-purple-600">{gameState.totalScore}</span>
 </div>
-<div className="text-blue-600 text-xl font-semibold">
-  Solved: <span className="text-indigo-600">{gameState.solvedProblems}</span>
+<div className="text-blue-600 text-lg font-semibold">
+  Solved: <span className="text-blue-600">{gameState.solvedProblems}</span>
 </div>
-<div className="text-indigo-600 text-xl font-semibold">
+<div className="text-indigo-600 text-lg font-semibold">
   Shuffles: <span className="text-indigo-600">{gameState.shufflesLeft}</span>
 </div>
   </div>
@@ -307,11 +308,11 @@ useEffect(() => {
         <motion.button
   whileHover={{ scale: 1.05 }}
   whileTap={{ scale: 0.95 }}
-  className="px-6 py-2 bg-fuchsia-600 text-white rounded-lg font-bold hover:bg-indigo-700"
+  className="px-6 py-2 bg-fuchsia-500 text-white rounded-lg font-bold hover:bg-fuchsia-700"
   onClick={handleCalculate}
   disabled={gameState.isCalculating}
 >
-  計算
+  Calc
 </motion.button>
 
 {/* やり直しボタン */}
@@ -321,14 +322,14 @@ useEffect(() => {
   className="px-6 py-2 bg-amber-500 text-white rounded-lg font-bold hover:bg-amber-600"
   onClick={handleReset}
 >
-  やり直し
+  Clear
 </motion.button>
 <motion.button
   whileHover={{ scale: 1.05 }}
   whileTap={{ scale: 0.95 }}
   className={`px-6 py-3 rounded-lg text-white font-bold ${
     gameState.shufflesLeft > 0
-      ? 'bg-indigo-500 hover:bg-indigo-600'
+      ? 'bg-pink-400 hover:bg-pink-600'
       : 'bg-gray-400 cursor-not-allowed'
   }`}
   onClick={handleShuffle}
@@ -355,22 +356,23 @@ useEffect(() => {
 
       {/* ゲームオーバー表示 */}
       {gameState.gameOver && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-          <motion.div
-            initial={{ scale: 0.5, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            className="bg-white p-8 rounded-lg text-center"
-          >
-            <h2 className="text-orange-600 text-2xl font-bold mb-4">Game Over!</h2>
-            <p className="text-indigo-600 text-xl mb-4">Total Score: {gameState.totalScore}</p>
-            <button
-              className="bg-purple-500 text-white px-6 py-2 rounded-lg font-bold hover:bg-purple-600"
-              onClick={startNewGame}
-            >
-              Play Again
-            </button>
-          </motion.div>
-        </div>
+  <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+    <motion.div
+      initial={{ scale: 0.5, opacity: 0 }}
+      animate={{ scale: 1, opacity: 1 }}
+      className="bg-white p-8 rounded-lg text-center"
+    >
+      <h2 className="text-2xl font-bold mb-4">Game Over!</h2>
+      <p className="text-xl mb-2">Total Score: {gameState.totalScore}</p>
+      <p className="text-lg mb-4">Problems Solved: {gameState.solvedProblems}</p>
+      <button
+        className="bg-indigo-600 text-white px-6 py-2 rounded-lg font-bold hover:bg-indigo-700"
+        onClick={() => startNewGame(true)}  // trueを渡してスコアをリセット
+      >
+        Play Again
+      </button>
+    </motion.div>
+  </div>
       )}
     </div>
   );
