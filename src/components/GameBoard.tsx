@@ -59,7 +59,7 @@ useEffect(() => {
       ...initialState,
       targetNumber: generateTargetNumber(),
       cards: generateCards(),
-      timeLeft: 45,
+      timeLeft: 55,
       // ゲームオーバーからの再スタート時はスコアをリセット
       totalScore: resetScore ? 0 : prev.totalScore,
       solvedProblems: resetScore ? 0 : prev.solvedProblems
